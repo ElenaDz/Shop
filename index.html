@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="css/main.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0 maximum-scale=1.0, user-scalable=no">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap"
+          rel="stylesheet">
+
+    <title>Магазин товаров</title>
+</head>
+<body>
+    <header>
+        <div class="b_basket">
+            <div class="wrap_img">
+                <img src="/img/shopping-basket.webp" alt="">
+            </div>
+            <div class="text">
+                <span class="info">Пусто</span>
+            </div>
+        </div>
+    </header>
+
+    <div class="b_products">
+        <div class="b_product" id="0">
+            <div class="name">Название1</div>
+            <div class="price">
+                <span class="number">800</span>
+                <span>p</span>
+            </div>
+            <div class="wrap_add">
+                <button>
+                    <span class="add">Добавить в корзину</span>
+                    <span class="delete">Убрать из корзины</span>
+                </button>
+            </div>
+        </div>
+        <div class="b_product" id="1">
+            <div class="name">Название2</div>
+            <div class="price">
+                <span class="number">900</span>
+                <span>p</span>
+            </div>
+            <div class="wrap_add">
+                <button>
+                    <span class="add">Добавить в корзину</span>
+                    <span class="delete">Убрать из корзины</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script src="ts/Basket.ts"></script>
+    <script src="ts/ProductMyStore.ts"></script>
+    <script src="ts/Product.ts"></script>
+    <script src="ts/ListProducts.ts"></script>
+    <script type="text/javascript">
+
+    </script>
+</body>
+</html>
