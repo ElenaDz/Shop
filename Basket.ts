@@ -10,6 +10,9 @@ export class Basket
     constructor()
     {
 
+        // подписываемся на событие Basket.EVENT_UPDATE, делаем updateText()
+
+    //     Из стора берум массив Id по нему заполняем products: Product[] и из него берем цены
     }
 
     private updateText()
@@ -46,6 +49,7 @@ export class Basket
 
     private getProducts(): Product[]
     {
+        // Если массив равен нал, заполняем
         return ;
     }
 

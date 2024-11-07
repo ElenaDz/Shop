@@ -5,7 +5,7 @@ export class Product
 
     }
 
-    private get inBasket():boolean
+    private get in_basket():boolean
     {
         return;
     }
@@ -26,6 +26,7 @@ export class Product
         return ;
     }
 
+    // наполняет корзину в момент загрузки страницы продуктами,которые добавили ранее
     public static createById(id):Product
     {
         return;
