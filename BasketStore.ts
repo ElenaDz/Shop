@@ -1,6 +1,6 @@
 class BasketStore
 {
-    private static KEY_PRODUCT_IDS = 'basket_basket_product_ids';
+    private static KEY_PRODUCT_IDS = 'shop_basket_product_ids';
 
     private static getProductIds(): string[]
     {

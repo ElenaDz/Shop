@@ -1,47 +1,29 @@
-export class Product
-{
-    public $context: JQuery;
-
-    constructor($context)
-    {
-
+export class Product {
+    constructor($context) {
     }
-
-    private get in_basket():boolean
-    {
+    get in_basket() {
         return;
     }
-
-
-    private get id() : number
-    {
-        return
+    get id() {
+        return;
     }
-
-    public get price(): number
-    {
-        return
+    get price() {
+        return;
     }
-
-    public static create($context = $('.b_product')): Product[]
-    {
-
+    static create($context = $('.b_product')) {
         let $products = $context;
         /** @type {Product[]} */
         let products = [];
-        console.log($products)
+        console.log($products);
         $products.each((index, element) => {
             let product = $(element);
             // products.push(new Product(product));
-        })
+        });
         return products;
     }
-
     // наполняет корзину в момент загрузки страницы продуктами,которые добавили ранее
     // 1 продукт возвращает
-
-    public static createById(id):Product
-    {
+    static createById(id) {
         return;
     }
 }
