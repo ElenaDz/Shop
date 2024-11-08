@@ -1,4 +1,4 @@
-export class Product {
+class Product {
     constructor($context) {
     }
     get in_basket() {

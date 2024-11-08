@@ -1,4 +1,4 @@
-export class Product
+ class Product
 {
     public $context: JQuery;
 

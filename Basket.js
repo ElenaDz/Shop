@@ -1,4 +1,4 @@
-export class Basket {
+class Basket {
     constructor() {
         // подписываемся на событие Basket.EVENT_UPDATE, делаем updateText()
         this.products = null;
