@@ -26,7 +26,7 @@
 
     <div class="products">
 
-        <div class="b_product in_basket" id="0">
+        <div class="b_product" id="1">
             <div class="name">Название1</div>
             <div class="price">
                 <span class="number">800</span>
@@ -39,11 +39,23 @@
                 </button>
             </div>
         </div>
-
-        <div class="b_product" id="1">
+        <div class="b_product" id="2">
             <div class="name">Название2</div>
             <div class="price">
                 <span class="number">900</span>
+                <span>p</span>
+            </div>
+            <div class="wrap_add">
+                <button>
+                    <span class="add">Добавить в корзину</span>
+                    <span class="delete">Убрать из корзины</span>
+                </button>
+            </div>
+        </div>
+        <div class="b_product" id="3">
+            <div class="name">Название3</div>
+            <div class="price">
+                <span class="number">700</span>
                 <span>p</span>
             </div>
             <div class="wrap_add">
@@ -59,13 +71,13 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"
             integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g=="
             crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-    <script type="module" src="Basket.js"></script>
+    <script src="Basket.js"></script>
     <script src="BasketStore.js"></script>
-    <script type="module" src="Product.js"></script>
+    <script src="Product.js"></script>
     <script type="text/javascript">
         $(function() {
-            let product = Product.create();
-            // let basket = Basket.create();
+            let products = Product.create();
+            let basket = Basket.create(products);
 
         });
     </script>

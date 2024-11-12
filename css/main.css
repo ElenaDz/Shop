@@ -5,6 +5,10 @@ body {
 
 button {
   cursor: pointer;
+  min-height: 35px;
+}
+button span {
+  display: none;
 }
 
 .hide {
@@ -17,10 +21,13 @@ header {
   justify-content: end;
 }
 header .b_basket {
+  width: 150px;
   background-color: white;
   box-sizing: border-box;
   border: none;
   display: flex;
+  justify-content: center;
+  align-items: center;
   flex-direction: column;
 }
 header .b_basket .wrap_img {
