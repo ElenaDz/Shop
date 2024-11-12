@@ -1,5 +1,4 @@
 
-
 class Basket
 {
     static readonly EVENT_UPDATE = 'Basket.EVENT_UPDATE';
