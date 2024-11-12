@@ -3,14 +3,16 @@ class Basket
 {
     static readonly EVENT_UPDATE = 'Basket.EVENT_UPDATE';
 
+    // fixme одно и тоже храниться в двух местах в products и product_ids, так нельзя, риск рассинхронизации
+    // fixme избавься от обоих свойств так как реально состоящие ты хранишь в Store пускай он и останется единственным местом хранения
     private products: Product[] = [];
-
     private product_ids = {};
 
     constructor(products: Product[])
     {
         products.forEach((product) =>
         {
+            // fixme эта проверка должна быть не здесь, думай где и переноси
             if (this.hasProductByProductId(product.id)) {
 
                 this.addProduct(product);
@@ -19,8 +21,10 @@ class Basket
 
         this.updateText();
 
-        BasketStore.setProductIds(this.product_ids)
+        BasketStore.setProductIds(this.product_ids);
 
+        // fixme убрать отсюда, логика работы кнопок продукта должна быть у продукта, и не просто у продукта, а у кнопок продукта,
+        //  уж точно не в корзине
         $('body').on(Basket.EVENT_UPDATE,(event, product: Product) =>
         {
             this.hasProductByProductId(product.id)
@@ -35,17 +39,18 @@ class Basket
 
     private updateText()
     {
+        // fixme повторяющийся код вынести в переменную
         if (this.getCountProduct() === 0) {
             $('body').find('.info').text('Пусто');
 
         } else {
             // @ts-ignore
             $('body').find('.info').
-            text(
-                this.getCountProduct()+' '
-                + Basket.declofNum(this.getCountProduct(), ['товар', 'товара', 'товаров'])
-                + ' на ' + this.getSumPrices() + ' p'
-            );
+                text(
+                    this.getCountProduct()+' '
+                    + Basket.declofNum(this.getCountProduct(), ['товар', 'товара', 'товаров'])
+                    + ' на ' + this.getSumPrices() + ' p'
+                );
         }
     }
 
@@ -59,11 +64,12 @@ class Basket
     {
         let product_ids = BasketStore.getProductIds();
 
-        return !product_ids[BasketStore.getKeyProductId(product_id)] == false ;
+        return ! product_ids[BasketStore.getKeyProductId(product_id)] == false ;
     }
 
     public addProduct(product: Product)
     {
+        // fixme корзина не управляет продуктами, связь через события
         product.$context.addClass('in_basket');
 
         product.showButton();
@@ -108,11 +114,13 @@ class Basket
 
     private getProducts(): Product[]
     {
-        return  this.products;
+        return this.products;
     }
 
+    // fixme передовать в корзину продукты на этапе создания корзины не нужно это просто не логично - убрать
+    // fixme метод должен возвращать корзину а не продукты
     public static create(products: Product[]): Product[]
     {
-        return  new Basket(products).getProducts();
+        return new Basket(products).getProducts();
     }
 }

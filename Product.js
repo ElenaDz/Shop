@@ -11,9 +11,12 @@ class Product {
             this.$context.trigger(Basket.EVENT_UPDATE, this);
         });
     }
+    // fixme не правильно, это проверка состояния состояние должно храниться в одном месте а именно в корзине,
+    //  здесь нужно спросить у корзины есть ли там этот продукт
     get in_basket() {
         return this.$context.hasClass('in_basket');
     }
+    // fixme убрать, перенеси эту логику в css, я уже говорил об этом видимо ты не поняла меня
     showButton() {
         if (this.in_basket) {
             this.$context.find('.add').hide();
@@ -32,6 +35,7 @@ class Product {
     }
     static create($context = $('.b_product')) {
         let $products = $context;
+        // fixme тип надо указывать в коде а не в комментарии
         /** @type {Product[]} */
         let products = [];
         $products.each((index, element) => {
@@ -40,7 +44,8 @@ class Product {
         });
         return products;
     }
-    // не поняла как использовыать этот метод, обошлась без него
+    // todo переписать, этот метод не работает с BasketStore он делает тоже самое что выше метод create только
+    //  создает не все продукты а один конкретный с заданным id
     static createById(id) {
         let $context = $('body').attr('id', id);
         BasketStore.createById(id);

@@ -20,11 +20,14 @@ class Product
         })
     }
 
+    // fixme не правильно, это проверка состояния состояние должно храниться в одном месте а именно в корзине,
+    //  здесь нужно спросить у корзины есть ли там этот продукт
     private get in_basket():boolean
     {
         return this.$context.hasClass('in_basket');
     }
 
+    // fixme убрать, перенеси эту логику в css, я уже говорил об этом видимо ты не поняла меня
     public showButton()
     {
         if (this.in_basket) {
@@ -49,6 +52,7 @@ class Product
     public static create($context = $('.b_product')): Product[]
     {
         let $products = $context;
+        // fixme тип надо указывать в коде а не в комментарии
         /** @type {Product[]} */
         let products = [];
 
@@ -59,7 +63,8 @@ class Product
         return products;
     }
 
-    // не поняла как использовыать этот метод, обошлась без него
+    // todo переписать, этот метод не работает с BasketStore он делает тоже самое что выше метод create только
+    //  создает не все продукты а один конкретный с заданным id
     public static createById(id : string):Product
     {
         let $context = $('body').attr('id', id);
