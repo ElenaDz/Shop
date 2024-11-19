@@ -7,13 +7,6 @@ button {
   cursor: pointer;
   min-height: 35px;
 
-  span {
-    display: none;
-  }
-}
-
-.hide {
-  display: none;
 }
 
 header {
@@ -46,6 +39,16 @@ header {
       justify-content: center;
       align-items: center;
     }
+  }
+}
+
+.in_basket {
+  .add {
+    display: none !important;
+  }
+  .delete {
+    display: flex !important;
+    justify-content: center !important;
   }
 }
 
@@ -83,7 +86,16 @@ header {
       &:hover {
         background-color: whitesmoke;
       }
+
+      .add {
+        display: flex;
+        justify-content: center;
+      }
+      .delete {
+        display: none;
+      }
     }
   }
 }
+
 

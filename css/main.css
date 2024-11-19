@@ -7,13 +7,6 @@ button {
   cursor: pointer;
   min-height: 35px;
 }
-button span {
-  display: none;
-}
-
-.hide {
-  display: none;
-}
 
 header {
   width: 100%;
@@ -42,6 +35,14 @@ header .b_basket .text {
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+.in_basket .add {
+  display: none !important;
+}
+.in_basket .delete {
+  display: flex !important;
+  justify-content: center !important;
 }
 
 .products {
@@ -75,6 +76,13 @@ header .b_basket .text {
 }
 .products .b_product button:hover {
   background-color: whitesmoke;
+}
+.products .b_product button .add {
+  display: flex;
+  justify-content: center;
+}
+.products .b_product button .delete {
+  display: none;
 }
 
 /*# sourceMappingURL=main.css.map */
