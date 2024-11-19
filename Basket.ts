@@ -5,7 +5,6 @@ class Basket
 
     private $context: JQuery;
 
-    // fixme одно и тоже храниться в двух местах в products и product_ids, так нельзя, риск рассинхронизации ok
     // fixme избавься от обоих свойств так как реально состоящие ты хранишь в Store пускай он и останется единственным местом хранения
     private products: Product[] = [];
 
@@ -17,25 +16,27 @@ class Basket
 
         this.updateText();
 
-        // fixme убрать отсюда, логика работы кнопок продукта должна быть у продукта, и не просто у продукта, а у кнопок продукта,
-        //  уж точно не в корзине ok
-       this.eventUpdate();
+        this.eventUpdate();
     }
 
     private eventUpdate()
     {
+        // fixme ерунда получилась, логика поведения кнопки купить/убрать должна быть в продукте а не в корзине
         $('body').on(Basket.EVENT_UPDATE,(event, product: Product) =>
         {
             Basket.hasProductByProductId(product.id)
                 ? this.removeProduct(product)
                 : this.addProduct(product);
 
+            // fixme логика работы store должна быть по возможности в store, здесь такая возможность есть,
+            // пускай story следит за событиями корзины и синхронизирует свое состояние сам
             BasketStore.setProductIds(this.getProductIds());
 
+            // событие обновления продукта должен генерировать продукт
             $('body').trigger(Product.EVENT_UPDATE_STATUS);
 
             this.updateText();
-        })
+        });
     }
 
     private initBasket()
@@ -72,15 +73,16 @@ class Basket
 
     private addProduct(product: Product)
     {
-        // fixme корзина не управляет продуктами, связь через события ok
-        if (!!product) this.products.push(product);
+        if ( ! product) return;
+
+        this.products.push(product);
     }
 
     public removeProduct(product: Product)
     {
-        this.products.forEach((basket_product: Product, index) =>
+        this.products.forEach((product_in_basket: Product, index) =>
         {
-            if (product.id == basket_product.id) {
+            if (product.id == product_in_basket.id) {
                 this.products.splice(index, 1);
             }
         })
@@ -107,7 +109,6 @@ class Basket
     {
         let $info = this.$context.find('.info')
 
-        // fixme повторяющийся код вынести в переменную ok
         if (this.getCountProduct() === 0) {
             $info.text('Пусто');
 
@@ -132,8 +133,7 @@ class Basket
         return this.products;
     }
 
-    // fixme передовать в корзину продукты на этапе создания корзины не нужно это просто не логично - убрать
-    // fixme метод должен возвращать корзину а не продукты ok
+
     public static create($context = $('.b_basket')): Basket
     {
         return new Basket($context);
