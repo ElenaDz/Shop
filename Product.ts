@@ -1,6 +1,6 @@
 class Product
 {
-    static readonly EVENT_UPDATE_STATUS = 'Product.EVENT_UPDATE_STATUS';
+    static readonly EVENT_SELECT = 'Product.EVENT_SELECT';
     public $context: JQuery;
 
     constructor($context: JQuery)
@@ -17,12 +17,9 @@ class Product
 
         this.$context.find('button').on('click', () =>
         {
-            // fixme событие обновления корзины должна генерировать корзина
-            this.$context.trigger(Basket.EVENT_UPDATE, this);
-        })
+            // fixme событие обновления корзины должна генерировать корзина OK
+            this.$context.trigger(Product.EVENT_SELECT, this);
 
-        $('body').on(Product.EVENT_UPDATE_STATUS,() =>
-        {
             this.updateStatus();
         })
     }

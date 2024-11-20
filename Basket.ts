@@ -4,15 +4,13 @@ class Basket
     static readonly EVENT_UPDATE = 'Basket.EVENT_UPDATE';
 
     private $context: JQuery;
-
-    // fixme избавься от обоих свойств так как реально состоящие ты хранишь в Store пускай он и останется единственным местом хранения
-    private products: Product[] = [];
+    // fixme избавься от обоих свойств так как реально состоящие ты хранишь в Store пускай он и останется единственным местом хранения ok
 
     constructor($context: JQuery)
     {
         this.$context = $context;
 
-        this.initBasket();
+        BasketStore.setProductIds(this.getProducts().map(product => product.id));
 
         this.updateText();
 
@@ -21,45 +19,14 @@ class Basket
 
     private eventUpdate()
     {
-        // fixme ерунда получилась, логика поведения кнопки купить/убрать должна быть в продукте а не в корзине
-        $('body').on(Basket.EVENT_UPDATE,(event, product: Product) =>
+        // fixme ерунда получилась, логика поведения кнопки купить/убрать должна быть в продукте а не в корзине ok
+        $('body').on(Product.EVENT_SELECT,(event, product: Product) =>
         {
-            Basket.hasProductByProductId(product.id)
-                ? this.removeProduct(product)
-                : this.addProduct(product);
-
-            // fixme логика работы store должна быть по возможности в store, здесь такая возможность есть,
-            // пускай story следит за событиями корзины и синхронизирует свое состояние сам
-            BasketStore.setProductIds(this.getProductIds());
-
-            // событие обновления продукта должен генерировать продукт
-            $('body').trigger(Product.EVENT_UPDATE_STATUS);
+            // событие обновления продукта должен генерировать продукт ok
+            $('body').trigger(Basket.EVENT_UPDATE, product.id);
 
             this.updateText();
         });
-    }
-
-    private initBasket()
-    {
-        let product_ids = BasketStore.getProductIds();
-
-        if (!product_ids) return;
-
-        product_ids.forEach((id) =>
-        {
-            let product = Product.createById(id);
-
-            this.addProduct(product);
-        })
-
-        BasketStore.setProductIds(this.getProductIds());
-
-        $('body').trigger(Product.EVENT_UPDATE_STATUS);
-    }
-
-    private getProductIds() : string[]
-    {
-        return this.getProducts().map(product => product.id);
     }
 
     public static hasProductByProductId(product_id: string):boolean
@@ -71,28 +38,11 @@ class Basket
         return !!product_ids.find((id) => id == product_id);
     }
 
-    private addProduct(product: Product)
-    {
-        if ( ! product) return;
-
-        this.products.push(product);
-    }
-
-    public removeProduct(product: Product)
-    {
-        this.products.forEach((product_in_basket: Product, index) =>
-        {
-            if (product.id == product_in_basket.id) {
-                this.products.splice(index, 1);
-            }
-        })
-    }
-
     public getSumPrices(): number
     {
         let sum:number = 0;
 
-        this.products.forEach((product) =>
+        this.getProducts().forEach((product) =>
         {
             sum = sum + product.price;
         })
@@ -102,7 +52,7 @@ class Basket
 
     public getCountProduct(): number
     {
-        return this.products.length;
+        return this.getProducts().length;
     }
 
     private updateText()
@@ -130,9 +80,22 @@ class Basket
 
     private getProducts(): Product[]
     {
-        return this.products;
-    }
+        let products : Product[] = [];
+        let product_ids = BasketStore.getProductIds();
 
+        if (!product_ids) return;
+
+        product_ids.forEach((id) =>
+        {
+            if (!Product.createById(id)) return;
+
+            let product = Product.createById(id);
+
+            products.push(product);
+        })
+
+        return products;
+    }
 
     public static create($context = $('.b_basket')): Basket
     {

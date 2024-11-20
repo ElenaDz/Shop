@@ -8,10 +8,8 @@ class Product {
         this.$context[0].Product = this;
         this.updateStatus();
         this.$context.find('button').on('click', () => {
-            // fixme событие обновления корзины должна генерировать корзина
-            this.$context.trigger(Basket.EVENT_UPDATE, this);
-        });
-        $('body').on(Product.EVENT_UPDATE_STATUS, () => {
+            // fixme событие обновления корзины должна генерировать корзина OK
+            this.$context.trigger(Product.EVENT_SELECT, this);
             this.updateStatus();
         });
     }
@@ -44,4 +42,4 @@ class Product {
             return new Product($context);
     }
 }
-Product.EVENT_UPDATE_STATUS = 'Product.EVENT_UPDATE_STATUS';
+Product.EVENT_SELECT = 'Product.EVENT_SELECT';
