@@ -23,7 +23,6 @@ class Basket
         $('body').on(BasketStore.EVENT_ADD +' , '+BasketStore.EVENT_REMOVE, () =>
         {
             this.updateText();
-
         })
     }
 
@@ -39,12 +38,12 @@ class Basket
 
     public addProduct(id : string)
     {
-        $('body').trigger(Basket.EVENT_ADD_PRODUCT, id);
+        BasketStore.addId(id);
     }
 
     public removeProduct(id : string)
     {
-        $('body').trigger(Basket.EVENT_REMOVE_PRODUCT, id);
+        BasketStore.removeId(id);
     }
 
     public getSumPrices(): number

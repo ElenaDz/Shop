@@ -7,19 +7,10 @@ class BasketStore
 
     constructor() {
 
-        $('body').on(Basket.EVENT_ADD_PRODUCT,(event, id : string) =>
-        {
-            this.addId(id);
-        });
-
-        $('body').on(Basket.EVENT_REMOVE_PRODUCT,(event, id : string) =>
-        {
-            this.removeId(id);
-        });
 
     }
 
-    private  removeId(id : string)
+    public static removeId(id : string)
     {
         let product_ids = BasketStore.getProductIds();
 
@@ -30,7 +21,7 @@ class BasketStore
         $('body').trigger(BasketStore.EVENT_REMOVE);
     }
 
-    private addId(id : string)
+    public  static addId(id : string)
     {
         let product_ids = BasketStore.getProductIds();
 

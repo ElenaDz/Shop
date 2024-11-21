@@ -19,10 +19,10 @@ class Basket {
         return !!product_ids.find((id) => id == product_id);
     }
     addProduct(id) {
-        $('body').trigger(Basket.EVENT_ADD_PRODUCT, id);
+        BasketStore.addId(id);
     }
     removeProduct(id) {
-        $('body').trigger(Basket.EVENT_REMOVE_PRODUCT, id);
+        BasketStore.removeId(id);
     }
     getSumPrices() {
         let sum = 0;

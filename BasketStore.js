@@ -1,19 +1,13 @@
 class BasketStore {
     constructor() {
-        $('body').on(Basket.EVENT_ADD_PRODUCT, (event, id) => {
-            this.addId(id);
-        });
-        $('body').on(Basket.EVENT_REMOVE_PRODUCT, (event, id) => {
-            this.removeId(id);
-        });
     }
-    removeId(id) {
+    static removeId(id) {
         let product_ids = BasketStore.getProductIds();
         product_ids = product_ids.filter((product_id) => product_id != id);
         BasketStore.setProductIds(product_ids);
         $('body').trigger(BasketStore.EVENT_REMOVE);
     }
-    addId(id) {
+    static addId(id) {
         let product_ids = BasketStore.getProductIds();
         product_ids.push(id);
         BasketStore.setProductIds(product_ids);
