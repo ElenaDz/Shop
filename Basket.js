@@ -1,24 +1,25 @@
 class Basket {
-    // fixme избавься от обоих свойств так как реально состоящие ты хранишь в Store пускай он и останется единственным местом хранения ok
     constructor($context) {
         this.$context = $context;
+        // @ts-ignore
+        if (this.$context[0].Basket)
+            return;
+        // @ts-ignore
+        this.$context[0].Basket = this;
         BasketStore.setProductIds(this.getProducts().map(product => product.id));
         this.updateText();
-        this.eventUpdate();
-    }
-    eventUpdate() {
-        // fixme ерунда получилась, логика поведения кнопки купить/убрать должна быть в продукте а не в корзине ok
-        $('body').on(Product.EVENT_SELECT, (event, product) => {
-            // событие обновления продукта должен генерировать продукт ok
-            $('body').trigger(Basket.EVENT_UPDATE, product.id);
-            this.updateText();
-        });
     }
     static hasProductByProductId(product_id) {
         let product_ids = BasketStore.getProductIds();
         if (!product_ids)
             return false;
         return !!product_ids.find((id) => id == product_id);
+    }
+    addProduct(id) {
+        $('body').trigger(Basket.EVENT_ADD_PRODUCT, id);
+    }
+    removeProduct(id) {
+        $('body').trigger(Basket.EVENT_REMOVE_PRODUCT, id);
     }
     getSumPrices() {
         let sum = 0;
@@ -64,4 +65,5 @@ class Basket {
         return new Basket($context);
     }
 }
-Basket.EVENT_UPDATE = 'Basket.EVENT_UPDATE';
+Basket.EVENT_ADD_PRODUCT = 'Basket.EVENT_ADD_PRODUCT';
+Basket.EVENT_REMOVE_PRODUCT = 'Basket.EVENT_EVENT_REMOVE_PRODUCT';

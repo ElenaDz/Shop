@@ -1,45 +1,33 @@
 class BasketStore
 {
+    static readonly EVENT_ADD = 'BasketStore.EVENT_ADD';
+    static readonly EVENT_REMOVE = 'BasketStore.EVENT_REMOVE';
+
     private static KEY_PRODUCT_IDS = 'shop_basket_product_ids';
 
     constructor() {
 
-        this.eventUpdate();
-    }
-
-    private  eventUpdate()
-    {
-        $('body').on(Basket.EVENT_UPDATE,(event,id : string) =>
+        $('body').on(Basket.EVENT_ADD_PRODUCT,(event, id : string) =>
         {
-            let product_ids = BasketStore.getProductIds();
-
-            if (product_ids.length == 0) {
-                product_ids.push(id);
-
-                BasketStore.setProductIds(product_ids);
-
-                return;
-            }
-
-            product_ids.find((product_id) => id == product_id)
-                ? this.removeId(id)
-                : this.addId(id);
-
+            this.addId(id);
         });
+
+        $('body').on(Basket.EVENT_REMOVE_PRODUCT,(event, id : string) =>
+        {
+            this.removeId(id);
+        });
+
     }
 
     private  removeId(id : string)
     {
         let product_ids = BasketStore.getProductIds();
 
-        product_ids.forEach((product_id, index) =>
-        {
-            if (product_id == id) {
-                product_ids.splice(index, 1);
-            }
-        })
+        product_ids = product_ids.filter((product_id) => product_id != id)
 
         BasketStore.setProductIds(product_ids);
+
+        $('body').trigger(BasketStore.EVENT_REMOVE);
     }
 
     private addId(id : string)
@@ -49,6 +37,8 @@ class BasketStore
         product_ids.push(id);
 
         BasketStore.setProductIds(product_ids);
+
+        $('body').trigger(BasketStore.EVENT_ADD);
     }
 
     public static getProductIds(): string[]

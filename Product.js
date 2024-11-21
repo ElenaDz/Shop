@@ -7,9 +7,14 @@ class Product {
         // @ts-ignore
         this.$context[0].Product = this;
         this.updateStatus();
+        let basket = Basket.create();
         this.$context.find('button').on('click', () => {
-            // fixme событие обновления корзины должна генерировать корзина OK
-            this.$context.trigger(Product.EVENT_SELECT, this);
+            this.in_basket
+                ? basket.removeProduct(this.id)
+                : basket.addProduct(this.id);
+        });
+        $('body').on(BasketStore.EVENT_ADD + ' , ' + BasketStore.EVENT_REMOVE, () => {
+            basket.updateText();
             this.updateStatus();
         });
     }
@@ -42,4 +47,3 @@ class Product {
             return new Product($context);
     }
 }
-Product.EVENT_SELECT = 'Product.EVENT_SELECT';
