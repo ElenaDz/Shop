@@ -1,9 +1,6 @@
 
 class Basket
 {
-    static readonly EVENT_ADD_PRODUCT = 'Basket.EVENT_ADD_PRODUCT';
-    static readonly EVENT_REMOVE_PRODUCT = 'Basket.EVENT_EVENT_REMOVE_PRODUCT';
-
     private $context: JQuery;
 
     constructor($context: JQuery)

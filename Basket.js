@@ -68,5 +68,3 @@ class Basket {
         return new Basket($context);
     }
 }
-Basket.EVENT_ADD_PRODUCT = 'Basket.EVENT_ADD_PRODUCT';
-Basket.EVENT_REMOVE_PRODUCT = 'Basket.EVENT_EVENT_REMOVE_PRODUCT';
