@@ -14,7 +14,6 @@ class Product {
                 : basket.addProduct(this.id);
         });
         $('body').on(BasketStore.EVENT_ADD + ' , ' + BasketStore.EVENT_REMOVE, () => {
-            basket.updateText();
             this.updateStatus();
         });
     }

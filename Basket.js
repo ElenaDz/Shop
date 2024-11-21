@@ -8,6 +8,9 @@ class Basket {
         this.$context[0].Basket = this;
         BasketStore.setProductIds(this.getProducts().map(product => product.id));
         this.updateText();
+        $('body').on(BasketStore.EVENT_ADD + ' , ' + BasketStore.EVENT_REMOVE, () => {
+            this.updateText();
+        });
     }
     static hasProductByProductId(product_id) {
         let product_ids = BasketStore.getProductIds();

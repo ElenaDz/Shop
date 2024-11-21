@@ -19,6 +19,12 @@ class Basket
         BasketStore.setProductIds(this.getProducts().map(product => product.id));
 
         this.updateText();
+
+        $('body').on(BasketStore.EVENT_ADD +' , '+BasketStore.EVENT_REMOVE, () =>
+        {
+            this.updateText();
+
+        })
     }
 
 

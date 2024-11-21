@@ -25,8 +25,6 @@ class Product
 
         $('body').on(BasketStore.EVENT_ADD +' , '+BasketStore.EVENT_REMOVE, () =>
         {
-            basket.updateText();
-
             this.updateStatus();
         })
     }
@@ -41,7 +39,6 @@ class Product
         this.in_basket
             ? this.$context.addClass('in_basket')
             : this.$context.removeClass('in_basket');
-
     }
 
     public get id() : string
