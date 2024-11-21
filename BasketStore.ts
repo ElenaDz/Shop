@@ -5,10 +5,6 @@ class BasketStore
 
     private static KEY_PRODUCT_IDS = 'shop_basket_product_ids';
 
-    constructor() {
-
-
-    }
 
     public static removeId(id : string)
     {

@@ -1,6 +1,4 @@
 class BasketStore {
-    constructor() {
-    }
     static removeId(id) {
         let product_ids = BasketStore.getProductIds();
         product_ids = product_ids.filter((product_id) => product_id != id);
